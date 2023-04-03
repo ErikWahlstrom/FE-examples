@@ -1,0 +1,12 @@
+﻿@page "/"
+@using BlazorServerSide.Data
+@inject MeasureService MeasureService
+
+<div class="hero-content">
+    <div class="grid grid-cols-3 gap-8">
+        @foreach (var item in MeasureService.MeasureItems)
+        {
+            <DimensionCard Dimension="item" OnClick="@(() => MeasureService.SelectedItem = item)" />
+        }
+    </div>
+</div>

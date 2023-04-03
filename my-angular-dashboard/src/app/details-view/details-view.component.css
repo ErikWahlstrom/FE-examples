@@ -1,0 +1,6 @@
+.right-align {
+    display: flex;
+    flex-direction: row-reverse;
+    gap: 5px;
+    margin-top: 10px;
+  }

@@ -1,0 +1,47 @@
+﻿@using BlazorServerSide.Data
+@inject MeasureService MeasureService
+
+@*<div class="alert alert-secondary mt-4">
+    <span class="oi oi-pencil me-2" aria-hidden="true"></span>
+    <strong>@Title</strong>
+
+    <span class="text-nowrap">
+        Please take our
+        <a target="_blank" class="font-weight-bold link-dark" href="https://go.microsoft.com/fwlink/?linkid=2186158">brief survey</a>
+    </span>
+    and tell us what you think.
+</div>*@
+
+<div class="card w-96 bg-base-100 shadow-xl @(MeasureService.SelectedItem == Dimension ? "bg-info" : "")" @onclick="OnClick">
+    <div class="card-body">
+        <h2 class="card-title">@Dimension?.Name</h2>
+        <div class="flex items-center p-4 shadow-xl rounded-box bg-accent text-accent-content">
+            <div class="flex-1 px-2">
+                <h3 class="text-3xl font-extrabold"> @Dimension?.Max </h3>
+                <p class="text-sm text-opacity-80">Max</p>
+            </div>
+        </div>
+        <div class="flex items-center p-4 shadow-xl rounded-box bg-accent text-accent-content">
+            <div class="flex-1 px-2">
+                <h3 class="text-3xl font-extrabold">@Dimension?.Min</h3>
+                <p class="text-sm text-opacity-80">Min</p>
+            </div>
+        </div>
+        <div class="flex items-center p-4 shadow-xl rounded-box bg-accent text-accent-content">
+            <div class="flex-1 px-2">
+                <h3 class="text-3xl font-extrabold">@Dimension?.Average</h3>
+                <p class="text-sm text-opacity-80">Average</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+
+    // Demonstrates how a parent component can supply parameters
+    [Parameter]
+    public MeasureItem? Dimension { get; set; }
+    [Parameter]
+    public EventCallback<MouseEventArgs> OnClick { get; set; }
+}
+

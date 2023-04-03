@@ -1,0 +1,72 @@
+﻿@page "/Details"
+@using BlazorServerSide.Data
+@inject MeasureService MeasureService
+
+<div>
+    @if (MeasureService.SelectedItem != null)
+    {
+        <div class="hero-content">
+            <DimensionCard Dimension="MeasureService.SelectedItem" @onclick="@(() => ModalInput = true)" />
+        </div>
+        <div class="stats shadow">
+            @foreach (var item in MeasureService.SelectedItem.Values)
+            {
+                <div class="stat place-items-center">
+                    <div class="stat-title">Value @(2 + 1)</div>
+                    <div class="stat-value">@item</div>
+                    <div class="stat-desc">mm</div>
+                </div>
+            }
+
+        </div>
+        <div>
+            <div class="modal @(ModalInput ? "modal-open" : "")">
+                <div class="modal-box">
+                    <div class="form-control w-full max-w-xs">
+                        <label class="label">
+                            <span class="label-text">New dimension name</span>
+                        </label>
+                        <input type="text" @bind-value="@NewName" placeholder="Type here" class="input input-bordered w-full max-w-xs" />
+                        <label class="label">
+                            <span class="label-text">New max value</span>
+                        </label>
+                        <input type="number" @bind-value="@NewMax" placeholder="Type here" class="input input-bordered w-full max-w-xs" />
+                        <div class="right-align">
+                            <button class="btn btn-primary" @onclick="@(() => SaveValues())">Save</button>
+                            <button class="btn" @onclick="@(() => ModalInput = false)">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+@code{
+    bool ModalInput { get; set; }
+    string NewName { get; set; } = "";
+    double NewMax { get; set; } = 0;
+    void SaveValues()
+    {
+        if (this.MeasureService.SelectedItem != null)
+        {
+            this.MeasureService.UpdateSelected(this.MeasureService.SelectedItem with { Max = NewMax, Name = NewName });
+        }
+        this.ModalInput = false;
+    }
+    protected override void OnInitialized()
+    {
+        this.NewMax = this.MeasureService.SelectedItem?.Max ?? 0;
+        this.NewName = this.MeasureService.SelectedItem?.Name ?? "";
+    }
+}
+
+<style scoped>
+    .right-align {
+        display: flex;
+        flex-direction: row-reverse;
+        gap: 5px;
+        margin-top: 10px;
+    }
+</style>
+
