@@ -4,5 +4,6 @@ import { test, expect } from '@playwright/test';
 // https://playwright.dev/docs/intro
 test('visits the app root url', async ({ page }) => {
   await page.goto('/');
-  await expect(page.locator('div.greetings > h1')).toHaveText('You did it!');
+  await page.getByText('Dimension2 6.7 Max 4.3 Min 5.7 Average').click();
+	await page.getByRole('button').nth(1).click();
 })
