@@ -8,12 +8,10 @@ import { MeasureItem, MeasurementItemsService } from '../measurement-items.servi
   styleUrls: ['./details-view.component.css']
 })
 export class DetailsViewComponent {
-  selectedObs$: Subject<MeasureItem | undefined> = new Subject<MeasureItem | undefined>();;
-  
   constructor(private measService: MeasurementItemsService){
     console.log("logging meas serv", this.measService)
     this.measService.selectedItemObs.subscribe(x => {
-      console.log("observinggg", x?.name)
+      console.log("observing", x?.name)
       this.selectedItem = x})
   }
 

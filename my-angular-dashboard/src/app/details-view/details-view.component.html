@@ -1,5 +1,4 @@
 <div>
-    {{ selectedObs$ | async }}
     <div class="hero-content" *ngIf="selectedItem !== undefined">
         <app-dimension-card [dimension]="selectedItem" (click)="showModal()" />
     </div>
